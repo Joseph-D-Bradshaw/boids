@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://dn18yoo2lhm1d"]
+
+[ext_resource type="Script" uid="uid://vb6whfr3wht" path="res://main.gd" id="1_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://unomjhw557yv" path="res://boid.tscn" id="1_ig7tw"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_0xm2m")
+
+[node name="Boid" parent="." instance=ExtResource("1_ig7tw")]
+position = Vector2(826, 498)
+
+[node name="DeadBoid" parent="." instance=ExtResource("1_ig7tw")]
+position = Vector2(893, 467)
+IS_DEAD = true
+
+[node name="DeadBoid2" parent="." instance=ExtResource("1_ig7tw")]
+position = Vector2(799, 697)
+IS_DEAD = true
+
+[node name="DeadBoid3" parent="." instance=ExtResource("1_ig7tw")]
+position = Vector2(519, 723)
+IS_DEAD = true
+
+[node name="DeadBoid4" parent="." instance=ExtResource("1_ig7tw")]
+position = Vector2(1647, 850)
+IS_DEAD = true
+
+[node name="DeadBoid5" parent="." instance=ExtResource("1_ig7tw")]
+position = Vector2(965, 877)
+IS_DEAD = true
+
+[node name="DeadBoid6" parent="." instance=ExtResource("1_ig7tw")]
+position = Vector2(1272, 771)
+IS_DEAD = true
+
+[node name="DeadBoid7" parent="." instance=ExtResource("1_ig7tw")]
+position = Vector2(686, 362)
+IS_DEAD = true
