@@ -1,38 +1,67 @@
-[gd_scene load_steps=3 format=3 uid="uid://dn18yoo2lhm1d"]
+[gd_scene load_steps=7 format=3 uid="uid://dn18yoo2lhm1d"]
 
 [ext_resource type="Script" uid="uid://vb6whfr3wht" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://unomjhw557yv" path="res://boid.tscn" id="1_ig7tw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0xm2m"]
+size = Vector2(2152, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h2yge"]
+size = Vector2(29, 1218.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1bvp3"]
+size = Vector2(31.25, 1224.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lquwl"]
+size = Vector2(2142.5, 32)
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_0xm2m")
 
 [node name="Boid" parent="." instance=ExtResource("1_ig7tw")]
-position = Vector2(826, 498)
+position = Vector2(899, 472)
 
 [node name="DeadBoid" parent="." instance=ExtResource("1_ig7tw")]
-position = Vector2(893, 467)
-IS_DEAD = true
+position = Vector2(1209, 457)
 
 [node name="DeadBoid2" parent="." instance=ExtResource("1_ig7tw")]
 position = Vector2(799, 697)
-IS_DEAD = true
 
 [node name="DeadBoid3" parent="." instance=ExtResource("1_ig7tw")]
 position = Vector2(519, 723)
-IS_DEAD = true
 
 [node name="DeadBoid4" parent="." instance=ExtResource("1_ig7tw")]
 position = Vector2(1647, 850)
-IS_DEAD = true
 
 [node name="DeadBoid5" parent="." instance=ExtResource("1_ig7tw")]
 position = Vector2(965, 877)
-IS_DEAD = true
 
 [node name="DeadBoid6" parent="." instance=ExtResource("1_ig7tw")]
 position = Vector2(1272, 771)
-IS_DEAD = true
 
 [node name="DeadBoid7" parent="." instance=ExtResource("1_ig7tw")]
 position = Vector2(686, 362)
-IS_DEAD = true
+
+[node name="BoundaryTop" type="Area2D" parent="."]
+
+[node name="CollisionTop" type="CollisionShape2D" parent="BoundaryTop"]
+position = Vector2(1066, 6)
+shape = SubResource("RectangleShape2D_0xm2m")
+
+[node name="BoundaryRight" type="Area2D" parent="."]
+
+[node name="CollisionRight" type="CollisionShape2D" parent="BoundaryRight"]
+position = Vector2(2131, 599.75)
+shape = SubResource("RectangleShape2D_h2yge")
+
+[node name="BoundaryLeft" type="Area2D" parent="."]
+
+[node name="CollisionLeft" type="CollisionShape2D" parent="BoundaryLeft"]
+position = Vector2(7.375, 600.75)
+shape = SubResource("RectangleShape2D_1bvp3")
+
+[node name="BoundaryBottom" type="Area2D" parent="."]
+
+[node name="CollisionBottom" type="CollisionShape2D" parent="BoundaryBottom"]
+position = Vector2(1067.75, 1194)
+shape = SubResource("RectangleShape2D_lquwl")
