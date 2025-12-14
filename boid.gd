@@ -1,8 +1,7 @@
 extends CharacterBody2D
 
+const KNN = 3
 const EPS = 0.001
-
-var neighbours = []
 
 @export var IS_DEAD = false
 
@@ -10,12 +9,14 @@ var neighbours = []
 @export var MAX_SPEED = 200.0
 @export var SPEED = 60.0
 @export_range(100.0, 1000.0, 10.0) var SEPARATION_FACTOR = 500.0
-@export var ALIGNMENT_FACTOR = 25.0
+@export var ALIGNMENT_FACTOR = 100.0
 @export var COHESION_FACTOR = 50.0
+@export var VISION_RADIUS = 350.0:
+	set(value):
+		vision_collision.shape.radius = value
 
-@onready var separation_area: Area2D = $SeparationArea
-@onready var separation_circle: CollisionShape2D = $SeparationArea/SeparationCollision
-@onready var line_2d = $Line2D
+@onready var vision_area: Area2D = $VisionArea
+@onready var vision_collision = $VisionArea/VisionCollision
 @onready var polygon_2d = $Polygon2D
 
 func _ready():
@@ -31,12 +32,13 @@ func _process(_delta):
 		velocity = velocity.normalized() * MAX_SPEED
 
 	get_separation()
+	get_alignment()
 	move_and_slide()
 
 	polygon_2d.look_at(global_position + velocity * 2)
 
 func get_separation():
-	var sep_neighbours = get_separation_neighbours()
+	var sep_neighbours = get_k_nearest(KNN)
 	
 	if sep_neighbours:
 		var separation := Vector2.ZERO
@@ -47,11 +49,34 @@ func get_separation():
 			var normalized_dir = direction / distance
 			var weight = 1 / (distance + EPS)
 			separation += normalized_dir * weight
-		
-		line_2d.points[0] = Vector2(0, 0)
-		line_2d.points[1] = separation
 
 		velocity += separation * SEPARATION_FACTOR
 
-func get_separation_neighbours():
-	return separation_area.get_overlapping_bodies().filter(func(b): return b != self)
+func get_alignment():
+	var align_neighbours = get_k_nearest(KNN)
+	
+	if align_neighbours:
+		var alignment := Vector2.ZERO
+		
+		for n in align_neighbours:
+			var dir = (n.global_position - global_position).normalized()
+			var weight = 1 / ((n.global_position - global_position).length() + EPS)
+
+			alignment += dir * weight
+		
+		velocity += alignment * ALIGNMENT_FACTOR
+			
+
+func get_visible_neighbours():
+	return vision_area.get_overlapping_bodies().filter(func(b): return b != self)
+
+func get_k_nearest(k: int) -> Array[Node2D]:
+	var neighbours = get_visible_neighbours()
+	
+	neighbours.sort_custom(nearest)
+	return neighbours.slice(0, k)
+
+func nearest(a: Node2D, b: Node2D):
+	var a_diff = global_position - a.global_position
+	var b_diff = global_position - b.global_position
+	return a if a_diff <= b_diff else b

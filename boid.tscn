@@ -5,8 +5,8 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_rwlh6"]
 radius = 30.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_xur1n"]
-radius = 185.0027
+[sub_resource type="CircleShape2D" id="CircleShape2D_dg2sk"]
+radius = 200.0
 
 [node name="Boid" type="CharacterBody2D" groups=["boid"]]
 collision_mask = 0
@@ -19,12 +19,8 @@ shape = SubResource("CircleShape2D_rwlh6")
 color = Color(1, 0, 0, 1)
 polygon = PackedVector2Array(-25, -25, 25, 0, -25, 25)
 
-[node name="SeparationArea" type="Area2D" parent="."]
+[node name="VisionArea" type="Area2D" parent="."]
 
-[node name="SeparationCollision" type="CollisionShape2D" parent="SeparationArea"]
-shape = SubResource("CircleShape2D_xur1n")
-
-[node name="Line2D" type="Line2D" parent="."]
-points = PackedVector2Array(0, 0, 60, 0)
-width = 2.0
-default_color = Color(0, 0, 1, 1)
+[node name="VisionCollision" type="CollisionShape2D" parent="VisionArea"]
+shape = SubResource("CircleShape2D_dg2sk")
+debug_color = Color(0.9768644, 0.00018790245, 0.41205007, 0.41960785)

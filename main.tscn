@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dn18yoo2lhm1d"]
 
 [ext_resource type="Script" uid="uid://vb6whfr3wht" path="res://main.gd" id="1_0xm2m"]
-[ext_resource type="PackedScene" uid="uid://unomjhw557yv" path="res://boid.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://ddp7wr5wc6fr7" path="res://boid_spawner.tscn" id="3_h2yge"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0xm2m"]
 size = Vector2(2152, 32)
@@ -18,29 +18,96 @@ size = Vector2(2142.5, 32)
 [node name="Main" type="Node2D"]
 script = ExtResource("1_0xm2m")
 
-[node name="Boid" parent="." instance=ExtResource("1_ig7tw")]
-position = Vector2(899, 472)
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="DeadBoid" parent="." instance=ExtResource("1_ig7tw")]
-position = Vector2(1209, 457)
+[node name="VisionSlider" type="HSlider" parent="UI"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 0
+offset_left = 56.0
+offset_top = 208.0
+offset_right = 256.0
+offset_bottom = 224.0
+min_value = 100.0
+max_value = 350.0
+step = 50.0
+value = 300.0
 
-[node name="DeadBoid2" parent="." instance=ExtResource("1_ig7tw")]
-position = Vector2(799, 697)
+[node name="VisionLabel" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = 58.0
+offset_top = 176.0
+offset_right = 143.0
+offset_bottom = 199.0
+text = "Vision"
 
-[node name="DeadBoid3" parent="." instance=ExtResource("1_ig7tw")]
-position = Vector2(519, 723)
+[node name="VisionValue" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = 267.0
+offset_top = 202.0
+offset_right = 347.0
+offset_bottom = 225.0
 
-[node name="DeadBoid4" parent="." instance=ExtResource("1_ig7tw")]
-position = Vector2(1647, 850)
+[node name="AlignmentSlider" type="HSlider" parent="UI"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 0
+offset_left = 55.0
+offset_top = 77.0
+offset_right = 255.0
+offset_bottom = 93.0
+min_value = 40.0
+max_value = 500.0
+step = 20.0
+value = 40.0
 
-[node name="DeadBoid5" parent="." instance=ExtResource("1_ig7tw")]
-position = Vector2(965, 877)
+[node name="AlignmentLabel" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = 57.0
+offset_top = 45.0
+offset_right = 97.0
+offset_bottom = 68.0
+text = "Alignment"
 
-[node name="DeadBoid6" parent="." instance=ExtResource("1_ig7tw")]
-position = Vector2(1272, 771)
+[node name="AlignmentValue" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = 266.0
+offset_top = 71.0
+offset_right = 346.0
+offset_bottom = 94.0
 
-[node name="DeadBoid7" parent="." instance=ExtResource("1_ig7tw")]
-position = Vector2(686, 362)
+[node name="SeparationSlider" type="HSlider" parent="UI"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 0
+offset_left = 56.0
+offset_top = 145.0
+offset_right = 256.0
+offset_bottom = 161.0
+min_value = 40.0
+max_value = 350.0
+step = 10.0
+value = 40.0
+
+[node name="SeparationLabel" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = 58.0
+offset_top = 113.0
+offset_right = 138.0
+offset_bottom = 136.0
+text = "Separation"
+
+[node name="SeparationValue" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = 267.0
+offset_top = 139.0
+offset_right = 347.0
+offset_bottom = 162.0
 
 [node name="BoundaryTop" type="Area2D" parent="."]
 
@@ -65,3 +132,14 @@ shape = SubResource("RectangleShape2D_1bvp3")
 [node name="CollisionBottom" type="CollisionShape2D" parent="BoundaryBottom"]
 position = Vector2(1067.75, 1194)
 shape = SubResource("RectangleShape2D_lquwl")
+
+[node name="BoidSpawner" parent="." node_paths=PackedStringArray("spawn_to") instance=ExtResource("3_h2yge")]
+visible = false
+position = Vector2(40, 43)
+num_of_boids = 50
+spawn_to = NodePath("..")
+
+[node name="SpawnArea" parent="BoidSpawner" index="0"]
+position = Vector2(1030, 559.5)
+
+[editable path="BoidSpawner"]

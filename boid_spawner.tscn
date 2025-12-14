@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://ddp7wr5wc6fr7"]
+
+[ext_resource type="Script" uid="uid://1moikhot5qa5" path="res://boid_spawner.gd" id="1_220lk"]
+[ext_resource type="PackedScene" uid="uid://unomjhw557yv" path="res://boid.tscn" id="2_o11jf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o11jf"]
+size = Vector2(2026, 1089)
+
+[node name="BoidSpawner" type="Node2D"]
+script = ExtResource("1_220lk")
+boid_scene = ExtResource("2_o11jf")
+
+[node name="SpawnArea" type="CollisionShape2D" parent="."]
+position = Vector2(51.5, 40.5)
+shape = SubResource("RectangleShape2D_o11jf")
+debug_color = Color(0.71633494, 0.28621244, 0.95877343, 0.41960785)
